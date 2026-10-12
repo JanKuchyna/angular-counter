@@ -68,5 +68,56 @@ describe('CounterService', () => {
     expect(service.counters()).toEqual([]);
   });
 
-  // TODO: samostatně doplňte testy scénářů 1–5 ze zadání.
+  it('should load saved counters from Preferences', async () => {
+    getMock.mockResolvedValue({
+      value: JSON.stringify([first, second]),
+    });
+
+    await service.initialize();
+
+    expect(getMock).toHaveBeenCalledWith({ key: 'saved-counters' });
+    expect(service.initialized()).toBe(true);
+    expect(service.counters()).toEqual([first, second]);
+  });
+
+  it('should add a counter to the beginning and persist it', async () => {
+    getMock.mockResolvedValue({
+      value: JSON.stringify([first]),
+    });
+
+    await service.add(second);
+
+    expect(service.counters()).toEqual([second, first]);
+    expect(setMock).toHaveBeenCalledWith({
+      key: 'saved-counters',
+      value: JSON.stringify([second, first]),
+    });
+  });
+
+  it('should remove only the matching counter and persist the rest', async () => {
+    getMock.mockResolvedValue({
+      value: JSON.stringify([second, first]),
+    });
+
+    await service.remove('second');
+
+    expect(service.counters()).toEqual([first]);
+    expect(setMock).toHaveBeenCalledWith({
+      key: 'saved-counters',
+      value: JSON.stringify([first]),
+    });
+  });
+
+  it('should clear the history and remove only its key', async () => {
+    getMock.mockResolvedValue({
+      value: JSON.stringify([second, first]),
+    });
+
+    await service.clear();
+
+    expect(service.counters()).toEqual([]);
+    expect(removeMock).toHaveBeenCalledTimes(1);
+    expect(removeMock).toHaveBeenCalledWith({ key: 'saved-counters' });
+    expect(setMock).not.toHaveBeenCalled();
+  });
 });
