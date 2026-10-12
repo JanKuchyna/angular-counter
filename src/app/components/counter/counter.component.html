@@ -12,12 +12,20 @@
       [(ngModel)]="counterName"
     ></ion-input>
 
+    <ion-toggle
+      class="negative-toggle"
+      [(ngModel)]="allowNegative"
+      (ionChange)="onAllowNegativeChange()"
+    >
+      Povolit záporné hodnoty
+    </ion-toggle>
+
     <p class="counter-value">{{ count }}</p>
 
     <div class="counter-actions">
       <ion-button
         color="danger"
-        [disabled]="count === 0"
+        [disabled]="!allowNegative && count === 0"
         (click)="decrement()"
       >
         −1

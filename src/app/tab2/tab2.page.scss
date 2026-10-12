@@ -1,0 +1,40 @@
+.history-header,
+.history-controls,
+ion-list,
+.state-message {
+  max-width: 40rem;
+  margin: 1rem auto;
+}
+
+.history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.history-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.history-controls ion-searchbar {
+  flex: 1 1 16rem;
+  padding: 0;
+}
+
+.history-controls ion-select {
+  flex: 0 0 auto;
+}
+
+.state-message {
+  color: var(--ion-color-medium);
+  text-align: center;
+}
+
+ion-note {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
