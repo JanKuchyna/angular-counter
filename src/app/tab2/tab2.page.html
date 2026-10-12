@@ -17,6 +17,11 @@
       <div>
         <p>Počet záznamů: {{ counterService.counters().length }}</p>
         <p>Součet hodnot: <strong>{{ totalValue() }}</strong></p>
+        <p>
+          Kladné: <strong>{{ valueStats().positive }}</strong> ·
+          Záporné: <strong>{{ valueStats().negative }}</strong> ·
+          Nulové: <strong>{{ valueStats().zero }}</strong>
+        </p>
       </div>
       <ion-button
         color="danger"

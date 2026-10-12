@@ -32,6 +32,25 @@ describe('CounterComponent', () => {
     expect(component.count).toBe(1);
   });
 
+  it('should go below zero when negative values are allowed', () => {
+    component.allowNegative = true;
+
+    component.decrement();
+    component.decrement();
+
+    expect(component.count).toBe(-2);
+  });
+
+  it('should reset a negative value when negative values get disabled', () => {
+    component.allowNegative = true;
+    component.count = -3;
+
+    component.allowNegative = false;
+    component.onAllowNegativeChange();
+
+    expect(component.count).toBe(0);
+  });
+
   it('should reset the counter', () => {
     component.count = 5;
 

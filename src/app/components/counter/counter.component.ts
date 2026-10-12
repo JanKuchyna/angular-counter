@@ -7,6 +7,7 @@ import {
   IonCardHeader,
   IonCardTitle,
   IonInput,
+  IonToggle,
 } from '@ionic/angular';
 import { SavedCounter } from '../../models/saved-counter';
 
@@ -22,6 +23,7 @@ import { SavedCounter } from '../../models/saved-counter';
     IonCardHeader,
     IonCardTitle,
     IonInput,
+    IonToggle,
   ],
 })
 export class CounterComponent {
@@ -30,14 +32,21 @@ export class CounterComponent {
 
   counterName = '';
   count = 0;
+  allowNegative = false;
 
   increment(): void {
     this.count++;
   }
 
   decrement(): void {
-    if (this.count > 0) {
+    if (this.allowNegative || this.count > 0) {
       this.count--;
+    }
+  }
+
+  onAllowNegativeChange(): void {
+    if (!this.allowNegative && this.count < 0) {
+      this.count = 0;
     }
   }
 
